@@ -42,7 +42,7 @@ boxplot(deaths$`Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per
 ggplot(data = age, mapping = aes(x = year, y = deaths, fill = age_group)) + geom_smooth(method = "loess") + labs(x = "Year", y = "Deaths") + theme_bw()
 
 p3 <- ggplot(data = incidence, mapping = aes(x = Entity, y = `Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)`, fill = Year)) + geom_point(mapping = aes(color = Year), shape = 21) + coord_flip() + theme_bw() + labs(x = NULL,  y = "Incidence", fill = "Year")
-ggplotly(p2)
+ggplotly(p3)
 
 
 ```
