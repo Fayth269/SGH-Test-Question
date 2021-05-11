@@ -1,0 +1,50 @@
+---
+title: "SGH Allied Health Division_Test Question"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+library(readr)
+library(data.table)
+library(ggplot2)
+library(plotly)
+
+deaths <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths.csv")
+age <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv")
+incidence <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_inc.csv")
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r malaria}
+deaths <- data.table(deaths)
+age<- data.table(age)
+incidence <- data.table(incidence)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r malaria, echo=FALSE}
+
+boxplot(deaths$`Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`~deaths$Entity)
+
+ggplot(data = age, mapping = aes(x = year, y = deaths, fill = age_group)) + geom_smooth(method = "loess") + labs(x = "Year", y = "Deaths") + theme_bw()
+
+p3 <- ggplot(data = incidence, mapping = aes(x = Entity, y = `Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)`, fill = Year)) + geom_point(mapping = aes(color = Year), shape = 21) + coord_flip() + theme_bw() + labs(x = NULL,  y = "Incidence", fill = "Year")
+ggplotly(p2)
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
